@@ -17,22 +17,22 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/getUser")
-    public ResponseEntity<UserModel> getUser(@RequestParam("name") String name) {
+    @GetMapping("/users/{name}")
+    public ResponseEntity<UserModel> getUser(@PathVariable("name") String name) {
         UserModel user = userService.getUser(name);
         if (user == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/addUser")
+    @PostMapping("/users")
     public ResponseEntity<HttpStatus> createUser(@RequestBody UserModel user) {
         userService.addUser(user);
         return  ResponseEntity.status(HttpStatus.CREATED).body(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/deleteUser")
-    public ResponseEntity<HttpStatus> deleteUser(@RequestParam("name") String name) {
+    @DeleteMapping("/users/{name}")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("name") String name) {
         userService.removeUser(name);
         return  ResponseEntity.noContent().build();
     }
