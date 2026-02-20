@@ -1,44 +1,39 @@
 package org.example.controllers;
 
-import org.apache.catalina.User;
-import org.apache.coyote.http11.HttpOutputBuffer;
 import org.example.model.UserModel;
+import org.example.services.UserService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 
 public class UserController {
 
-    public Map<String, UserModel> userMap = new HashMap<>();
+    public final UserService userService;
 
-    public UserController() {
-        userMap.put("John", new UserModel("John","Doe", 1112));
-        userMap.put("Jane", new UserModel("Jane","Duh", 2231));
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/getUser")
     public ResponseEntity<UserModel> getUser(@RequestParam("name") String name) {
-        if (userMap.containsKey(name)) {
-            return new ResponseEntity<>(userMap.get(name), HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        UserModel user = userService.getUser(name);
+        if (user == null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/addUser")
     public ResponseEntity<HttpStatus> createUser(@RequestBody UserModel user) {
-        userMap.put(user.getFirstName(),  user);
+        userService.addUser(user);
         return  ResponseEntity.status(HttpStatus.CREATED).body(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/deleteUser")
     public ResponseEntity<HttpStatus> deleteUser(@RequestParam("name") String name) {
-        userMap.remove(name);
+        userService.removeUser(name);
         return  ResponseEntity.noContent().build();
     }
 }
