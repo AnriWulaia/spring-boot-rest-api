@@ -14,6 +14,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("org.springframework.boot:spring-boot-starter-web:4.1.0-M1")
+    implementation("com.konghq:unirest-java:3.14.5")
+
 }
 tasks.withType<JavaCompile> {
     options.compilerArgs.add("-parameters")

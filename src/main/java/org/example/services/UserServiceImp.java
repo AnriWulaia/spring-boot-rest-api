@@ -13,8 +13,10 @@ import java.util.Map;
 public class UserServiceImp implements UserService {
 
     public Map<String, UserModel> userMap = new HashMap<>();
+    private final TimeService timeService;
 
-    public UserServiceImp(){
+    public UserServiceImp(TimeService timeService) {
+        this.timeService = timeService;
         userMap.put("John", new UserModel("John","Doe", 1112));
         userMap.put("Jane", new UserModel("Jane","Duh", 2231));
     }
@@ -24,6 +26,7 @@ public class UserServiceImp implements UserService {
     }
 
     public void addUser(UserModel user){
+        user.setCreationTime(timeService.getCurrentTime("Tbilisi"));
         userMap.put(user.getFirstName(), user);
     }
 

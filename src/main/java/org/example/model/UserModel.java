@@ -4,6 +4,7 @@ public class UserModel {
     private String firstName;
     private String lastName;
     private Integer membershipId;
+    private String creationTime;
 
     public UserModel(String firstName, String lastName, Integer membershipId) {
         this.firstName = firstName;
@@ -18,6 +19,10 @@ public class UserModel {
     public String getLastName() {
         return lastName;
     }
+
+    public String getCreationTime() {return creationTime;}
+
+    public void setCreationTime(String creationTime) {this.creationTime = creationTime;}
 
     public Integer getMembershipId() {
         return membershipId;

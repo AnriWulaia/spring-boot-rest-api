@@ -1,0 +1,3 @@
+api:
+  endpoint: "https://timeapi.io/api/v1/timezone/zone?timeZone="
+  continent: "Asia"

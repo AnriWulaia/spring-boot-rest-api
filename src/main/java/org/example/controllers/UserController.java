@@ -18,7 +18,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{name}")
-    public ResponseEntity<UserModel> getUser(@PathVariable("name") String name) {
+    public ResponseEntity<UserModel> getUser(@PathVariable String name) {
         UserModel user = userService.getUser(name);
         if (user == null) return ResponseEntity.notFound().build();
 
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{name}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("name") String name) {
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable String name) {
         userService.removeUser(name);
         return  ResponseEntity.noContent().build();
     }
