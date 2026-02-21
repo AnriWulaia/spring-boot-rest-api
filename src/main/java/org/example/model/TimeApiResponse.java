@@ -4,18 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties
 public class TimeApiResponse {
-    private String local_time;
+    private String date_time;
 
 
-    public TimeApiResponse(String local_time) {
-        this.local_time = local_time;
+    public TimeApiResponse(String date_time) {
+        this.date_time = date_time;
     }
 
     public String getLocal_time() {
-        return local_time;
+        return date_time;
     }
 
-    public void setLocal_time(String local_time) {
-        this.local_time = local_time;
+    public void setLocal_time(String date_time) {
+        this.date_time = date_time;
     }
 }

@@ -1,8 +1,9 @@
 package org.example.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.example.model.UserModel;
+import org.example.services.IPService;
 import org.example.services.UserService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     public final UserService userService;
+    public final IPService ipService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, IPService ipService) {
         this.userService = userService;
+        this.ipService = ipService;
     }
 
     @GetMapping("/users/{name}")
@@ -26,9 +29,11 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<HttpStatus> createUser(@RequestBody UserModel user) {
-        userService.addUser(user);
-        return  ResponseEntity.status(HttpStatus.CREATED).body(HttpStatus.CREATED);
+    public ResponseEntity<Void> createUser(@RequestBody UserModel user, HttpServletRequest request) {
+        //get IP address
+        String userIp = ipService.getRemoteIP(request);
+        userService.addUser(user, userIp);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/users/{name}")

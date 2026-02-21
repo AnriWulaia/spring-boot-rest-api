@@ -12,8 +12,9 @@ import java.util.Map;
 @Primary
 public class UserServiceImp implements UserService {
 
-    public Map<String, UserModel> userMap = new HashMap<>();
+    private Map<String, UserModel> userMap = new HashMap<>();
     private final TimeService timeService;
+
 
     public UserServiceImp(TimeService timeService) {
         this.timeService = timeService;
@@ -25,8 +26,8 @@ public class UserServiceImp implements UserService {
         return userMap.get(name);
     }
 
-    public void addUser(UserModel user){
-        user.setCreationTime(timeService.getCurrentTime("Tbilisi"));
+    public void addUser(UserModel user, String ipAddress){
+        user.setCreationTime(timeService.getCurrentTime(ipAddress));
         userMap.put(user.getFirstName(), user);
     }
 
