@@ -28,7 +28,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<Void> createUser(@RequestBody UserModel user, HttpServletRequest request) {
         //get IP address
         String userIp = ipService.getRemoteIP(request);
