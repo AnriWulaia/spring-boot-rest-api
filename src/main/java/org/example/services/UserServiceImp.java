@@ -1,38 +1,40 @@
 package org.example.services;
 
 import org.example.model.UserModel;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.example.repository.UserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
+
 
 @Service
 @Primary
 public class UserServiceImp implements UserService {
 
-    private Map<String, UserModel> userMap = new HashMap<>();
     private final TimeService timeService;
+    private final UserRepository userRepository;
 
 
-    public UserServiceImp(TimeService timeService) {
+    public UserServiceImp(TimeService timeService, UserRepository userRepository) {
         this.timeService = timeService;
-        userMap.put("John", new UserModel("John","Doe", 1112));
-        userMap.put("Jane", new UserModel("Jane","Duh", 2231));
+        this.userRepository = userRepository;
     }
 
-    public UserModel getUser(String name){
-        return userMap.get(name);
+    @Override
+    public UserModel getUser(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
-    public void addUser(UserModel user, String ipAddress){
-        user.setCreationTime(timeService.getCurrentTime(ipAddress));
-        userMap.put(user.getFirstName(), user);
+    @Override
+    public void addUser(UserModel user, String ipAddress) {
+        user.setCreatedAt(timeService.getCurrentTime(ipAddress));
+        userRepository.save(user);
     }
 
-    public void removeUser(String name){
-        userMap.remove(name);
+    @Override
+    public void removeUser(Long id) {
+        userRepository.findById(id).ifPresent(userRepository::delete);
     }
 
 }

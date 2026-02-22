@@ -1,5 +1,7 @@
 package org.example.services;
 
+import java.time.LocalDateTime;
+
 public interface TimeService {
-    String getCurrentTime(String ipAddress);
+    LocalDateTime getCurrentTime(String ipAddress);
 }

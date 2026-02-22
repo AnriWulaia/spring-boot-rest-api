@@ -1,25 +1,28 @@
 plugins {
+    id("org.springframework.boot") version "3.2.2"
+    id("io.spring.dependency-management") version "1.1.4"
     id("java")
 }
 
 group = "org.example"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation("org.springframework.boot:spring-boot-starter-web:4.1.0-M1")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.konghq:unirest-java:3.14.5")
+    runtimeOnly("org.postgresql:postgresql")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
-tasks.withType<JavaCompile> {
-    options.compilerArgs.add("-parameters")
-}
-
 tasks.test {
     useJUnitPlatform()
 }

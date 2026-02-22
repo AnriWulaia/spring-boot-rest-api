@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-
+@RequestMapping("/users")
 public class UserController {
 
     public final UserService userService;
@@ -20,9 +20,9 @@ public class UserController {
         this.ipService = ipService;
     }
 
-    @GetMapping("/users/{name}")
-    public ResponseEntity<UserModel> getUser(@PathVariable String name) {
-        UserModel user = userService.getUser(name);
+    @GetMapping("/{id}")
+    public ResponseEntity<UserModel> getUser(@PathVariable Long id) {
+        UserModel user = userService.getUser(id);
         if (user == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(user);
@@ -36,9 +36,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/users/{name}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable String name) {
-        userService.removeUser(name);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
+        userService.removeUser(id);
         return  ResponseEntity.noContent().build();
     }
 }

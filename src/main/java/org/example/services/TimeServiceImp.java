@@ -19,13 +19,13 @@ public class TimeServiceImp implements TimeService {
     }
 
     @Override
-    public String getCurrentTime(String ipAddress) {
+    public LocalDateTime getCurrentTime(String ipAddress) {
         TimeApiResponse response = Unirest.get(timeApiConfig.getEndpoint() + ipAddress)
                 .asObject(TimeApiResponse.class).getBody();
         if (response != null) {
             return response.getLocal_time();
         } else {
-            return LocalDateTime.now().toString();
+            return LocalDateTime.now();
         }
     }
 
