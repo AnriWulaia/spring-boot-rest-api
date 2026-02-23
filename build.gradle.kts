@@ -22,6 +22,8 @@ dependencies {
     implementation("com.konghq:unirest-java:3.14.5")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation ("org.springframework.boot:spring-boot-starter-cache")
+    implementation ("org.springframework.boot:spring-boot-starter-data-redis")
 }
 tasks.test {
     useJUnitPlatform()

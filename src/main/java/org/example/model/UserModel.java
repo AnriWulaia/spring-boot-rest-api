@@ -3,6 +3,7 @@ package org.example.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "users")
@@ -25,11 +26,11 @@ public class UserModel {
     private String ipAddress;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     public UserModel() {}
 
-    public UserModel(String firstName, String lastName, String email, String ipAddress, LocalDateTime createdAt) {
+    public UserModel(String firstName, String lastName, String email, String ipAddress, OffsetDateTime createdAt) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -53,6 +54,6 @@ public class UserModel {
     public String getIpAddress() { return ipAddress; }
     public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public OffsetDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(OffsetDateTime createdAt) { this.createdAt = createdAt; }
 }
