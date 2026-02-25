@@ -27,3 +27,7 @@ bin/
 # macOS
 .DS_Store
 desktop.ini
+
+.env
+docker/.env
+*.jar
